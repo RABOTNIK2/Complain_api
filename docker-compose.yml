@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres
+    env_file: "complain_proj/.env.docker"
+    ports:
+      - "5432:5432"
+    profiles:
+      - dev
+  
+  complain:
+    build:
+      context: "./complain_proj"
+    ports:
+      - "8001:8000"
+    depends_on:
+      - postgres-db
+    profiles:
+      - dev
+  
+
+  
